@@ -2,9 +2,9 @@ name       : graalvm
 version    : 22.3.3
 release    : 7
 source     :
-    - git|https://github.com/oracle/graal.git : vm-ce-22.3.3
-    - git|https://github.com/graalvm/mx.git : 6.23.3
-    - https://github.com/graalvm/labs-openjdk-17/releases/download/jvmci-23.0-b15/labsjdk-ce-17.0.8+7-jvmci-23.0-b15-linux-amd64.tar.gz : 89fc839d961e2113c248c342e681b4ef4ef5f5d1f9634a36d5923c8ed56a7a73
+    - git|https://github.com/oracle/graal.git : jdk-25.0.1
+    - git|https://github.com/graalvm/mx.git : 7.54.6.1
+    - https://github.com/graalvm/labs-openjdk/releases/download/25.0.1%2B8-jvmci-b01/labsjdk-ce-25.0.1+8-jvmci-b01-debug-linux-amd64.tar.gz : 6248a8fb7d62087778c1df6758b2fe93058a1deaada372d194b39065709cdb95
 homepage   : https://www.graalvm.org/
 license    : GPL-2.0-or-later
 component  : programming.tools
@@ -12,7 +12,7 @@ networking : true
 clang      : true
 summary    : High-performance JDK distribution
 description: |
-    GraalVM is a high-performance JDK distribution designed to accelerate the execution of applications written in Java and other JVM languages along with support for JavaScript, Ruby, Python, and a number of other popular languages
+    GraalVM is a high-performance JDK distribution desIgned to accelerate the execution of applications written in Java and other JVM languages along with support for JavaScript, Ruby, Python, and a number of other popular languages
 builddeps  :
     - pkgconfig(alsa)
     - pkgconfig(xtst)
@@ -22,9 +22,13 @@ build      : |
 
     # Setup the custom jdk required to build graal
     # we need a special version of java to build which includes some needed headers
-    cp $sources/labsjdk-ce-17.0.8+7-jvmci-23.0-b15-linux-amd64.tar.gz $workdir
-    tar xvf labsjdk-ce-17.0.8+7-jvmci-23.0-b15-linux-amd64.tar.gz
-    export JAVA_HOME=$workdir/labsjdk-ce-17.0.8-jvmci-23.0-b15/
+    ls -la $sources
+
+    cp $sources/labsjdk-ce-25.0.1+8-jvmci-b01-debug-linux-amd64.tar.gz $workdir
+    ls -la $workdir
+
+    tar xvf labsjdk-ce-25.0.1+8-jvmci-b01-debug-linux-amd64.tar.gz
+    export JAVA_HOME=$workdir/labsjdk-ce-25.0.1-jvmci-b01-debug/
 
     # Setup MX build tool
     mkdir -p $workdir/mx-build-tool
